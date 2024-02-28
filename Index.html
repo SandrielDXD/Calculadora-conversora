@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora com Conversor</title>
+<link rel="stylesheet" type="text/css" href="Style.css">
+</head>
+<body>
+  <h1>Calculadora com Conversor</h1>
+
+  <div class="calculator-container">
+    <label for="num1">Número 1:</label>
+    <input type="text" id="num1">
+    
+    <label for="num2" id="num2Label">Número 2:</label>
+    <input type="text" id="num2">
+
+    <select id="operation" onchange="toggleNum2()">
+      <option value="add">+</option>
+      <option value="subtract">-</option>
+      <option value="multiply">*</option>
+      <option value="divide">/</option>
+      <option value="decimalToBinary">Decimal para Binário</option>
+      <option value="decimalToHex">Decimal para Hexadecimal</option>
+      <option value="binaryToDecimal">Binário para Decimal</option>
+      <option value="hexToDecimal">Hexadecimal para Decimal</option>
+      <option value="hexToBinary">Hexadecimal para Binário</option>
+      <option value="binaryToHex">Binário para Hexadecimal</option>
+    </select>
+
+    <button onclick="calculate()">Calcular</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function toggleNum2() {
+      const operation = document.getElementById('operation').value;
+      const num2Label = document.getElementById('num2Label');
+      const num2 = document.getElementById('num2');
+
+      if (operation === 'decimalToBinary' || operation === 'decimalToHex' || operation === 'binaryToDecimal' || operation === 'hexToDecimal') {
+        num2Label.style.display = 'none';
+        num2.style.display = 'none';
+      } else {
+        num2Label.style.display = 'block';
+        num2.style.display = 'block';
+      }
+    }
+
+    function calculate() {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const operation = document.getElementById('operation').value;
+        let result;
+  
+        switch (operation) {
+          case 'add':
+            result = num1 + num2;
+            break;
+          case 'subtract':
+            result = num1 - num2;
+            break;
+          case 'multiply':
+            result = num1 * num2;
+            break;
+          case 'divide':
+            result = num1 / num2;
+            break;
+          case 'decimalToBinary':
+            result = decimalToBinary(num1);
+            break;
+          case 'decimalToHex':
+            result = decimalToHex(num1);
+            break;
+          case 'binaryToDecimal':
+            result = binaryToDecimal(num1);
+            break;
+          case 'hexToDecimal':
+            result = hexToDecimal(num1);
+            break;
+          case 'hexToBinary':
+            result = hexToBinary(num1);
+            break;
+          case 'binaryToHex':
+            result = binaryToHex(num1);
+            break;
+          default:
+            result = "Operação inválida";
+        }
+  
+        document.getElementById('result').innerText = result;
+      }
+  
+      function decimalToBinary(decimal) {
+        return decimal.toString(2);
+      }
+  
+      function decimalToHex(decimal) {
+        return decimal.toString(16).toUpperCase();
+      }
+  
+      function binaryToDecimal(binary) {
+        return parseInt(binary, 2);
+      }
+  
+      function hexToDecimal(hex) {
+        return parseInt(hex, 16);
+      }
+  
+      function hexToBinary(hex) {
+        return parseInt(hex, 16).toString(2);
+      }
+  
+      function binaryToHex(binary) {
+        return parseInt(binary, 2).toString(16).toUpperCase();
+      }
+  </script>
+</body>
+</html>
